@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Adam Bureau | Strategic Advisory</title>
+    <meta name="description" content="Strategic Advisory & Risk Management for HNWIs and Family Offices. Global Strategic Advisory & Risk Architecture.">
+    
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@500;700;900&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-root: #f8fafc;
+            --surface-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --accent-blue: #2563eb;
+            --border-light: #e2e8f0;
+            --header-height: 90px;
+        }
+
+        /* --- RESET & BASE --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-root);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Typography Calibration */
+        h1, h2, h3, h4 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; color: var(--text-primary); }
+        .serif { font-family: 'DM Serif Display', serif; }
+        .classical { font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; }
+        .arabic { font-family: 'Amiri', serif; }
+
+        button { cursor: pointer; border: none; background: none; font-family: inherit; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section-padding { padding: 120px 0; }
+
+        /* Navigation */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--header-height);
+            background: rgba(248, 250, 252, 0.95); backdrop-filter: blur(12px);
+            z-index: 1000; border-bottom: 1px solid var(--border-light); display: flex; align-items: center;
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .brand-lockup { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .brand-mark {
+            width: 40px; height: 40px; background: var(--text-primary); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1.1rem; border-radius: 2px;
+        }
+        .brand-logo { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.05em; display: flex; flex-direction: column; line-height: 1; }
+        .brand-sub { font-size: 0.55rem; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-secondary); margin-top: 4px; }
+        .brand-arabic { color: var(--accent-blue); font-size: 1.1rem; margin-left: 8px; }
+
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-btn { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s; }
+        .nav-btn:hover, .nav-btn.active { color: var(--accent-blue); }
+
+        .cta-btn {
+            background: var(--text-primary); color: white; padding: 12px 24px;
+            border-radius: 2px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+        }
+
+        .hero-label, .doc-label { 
+            color: var(--accent-blue); 
+            font-weight: 700; 
+            font-size: 0.65rem; 
+            letter-spacing: 0.25em; 
+            text-transform: uppercase; 
+            margin-bottom: 24px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 12px; 
+        }
+        .hero-label::before, .doc-label::before { content: ''; width: 20px; height: 1px; background: var(--accent-blue); }
+
+        /* Page Layout & Views */
+        main { flex: 1; margin-top: var(--header-height); }
+        .page-view { display: none; animation: fadeIn 0.5s ease; }
+        .page-view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- HOME VIEW REFINEMENTS --- */
+        .square-hero-container {
+            width: 100%; background-color: #f2f4f6; border-bottom: 1px solid var(--border-light);
+            display: flex; align-items: center; min-height: 85vh; position: relative;
+        }
+        .sq-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; width: 100%; max-width: 1300px; margin: 0 auto; padding: 0 40px; align-items: center; }
+        .sq-headline { font-family: 'DM Serif Display', serif; font-size: 3.8rem; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.02em; }
+        .sq-headline span { display: block; color: var(--text-secondary); font-style: italic; }
+        .sq-subheadline { font-family: 'Inter', sans-serif; font-size: 1.1rem; color: var(--text-secondary); line-height: 1.7; max-width: 580px; margin-bottom: 40px; }
+        .sq-btn-primary { background: var(--text-primary); color: white; padding: 20px 40px; font-size: 0.9rem; font-weight: 700; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        
+        .interface-card { width: 100%; max-width: 550px; background: white; border-radius: 12px; box-shadow: 0 40px 100px -20px rgba(0,0,0,0.15); overflow: hidden; transform: perspective(1000px) rotateY(-5deg) rotateX(2deg); transition: transform 0.5s; }
+        .if-header { padding: 20px 30px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; background: #fafafa; }
+        .if-body { padding: 40px 30px; }
+        .if-metric-row { display: flex; justify-content: space-between; margin-bottom: 40px; }
+        .if-label { font-size: 0.6rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.15em; display: block; margin-bottom: 8px; font-weight: 700; }
+        .if-val { font-family: 'DM Serif Display', serif; font-size: 2.2rem; }
+        .if-graph-area { height: 120px; width: 100%; background: linear-gradient(180deg, rgba(37,99,235,0.05) 0%, rgba(255,255,255,0) 100%); border-bottom: 2px solid var(--accent-blue); position: relative; }
+        .if-graph-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg width='500' height='120' viewBox='0 0 500 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 50 90 100 80 T 200 60 T 300 90 T 400 40 T 500 20' fill='none' stroke='%232563eb' stroke-width='2'/%3E%3C/svg%3E"); background-size: cover; }
+        
+        /* Prominent Press Strip */
+        .featured-strip { padding: 56px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); background: #ffffff; margin: 40px 0 80px 0; }
+        .featured-content { display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+        .featured-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-secondary); opacity: 0.7; }
+        .press-logo { height: 22px; width: auto; fill: #0f172a; opacity: 0.9; transition: opacity 0.3s; }
+        .press-logo:hover { opacity: 1; }
+
+        /* Refined Hero Banner Section */
+        .hero-banner { background: #ffffff; border: 1px solid var(--border-light); border-radius: 0; padding: 80px 60px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: center; box-shadow: 0 40px 80px -40px rgba(0,0,0,0.08); margin-top: 80px; }
+        .hero-title { font-family: 'DM Serif Display', serif; font-size: 3.2rem; margin-bottom: 32px; line-height: 1; }
+        .profile-dossier { background: #0f172a; color: white; border-radius: 2px; padding: 48px; position: relative; overflow: hidden; }
+        .profile-dossier::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--accent-blue); }
+        .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; }
+
+        /* Testimonials Section */
+        .testimonial-section { background: #f8fafc; border-top: 1px solid var(--border-light); padding: 120px 0; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .testimonial-item { padding-bottom: 40px; border-bottom: 1px solid var(--border-light); }
+        .testimonial-quote { font-size: 1.1rem; line-height: 1.8; color: var(--text-primary); font-weight: 300; margin-bottom: 32px; font-style: italic; }
+        .testimonial-meta { display: flex; flex-direction: column; gap: 4px; }
+        .tm-name { font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; color: var(--text-primary); }
+        .tm-jurisdiction { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 0.2em; }
+        .tm-title { font-size: 0.8rem; color: var(--text-secondary); font-weight: 400; }
+
+        /* --- ADVISORY VIEW --- */
+        .content-header h2 { font-size: 4rem; letter-spacing: -0.04em; margin-bottom: 32px; line-height: 1.05; }
+        .pillars-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border-light); margin-bottom: 100px; background: white; }
+        .pillar-col { padding: 80px 60px; display: flex; flex-direction: column; }
+        .pillar-col:first-child { border-right: 1px solid var(--border-light); }
+        .pillar-item { border-top: 1px solid var(--border-light); padding: 32px 0; }
+        .pillar-head { font-weight: 800; font-size: 0.95rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.1em; }
+        .pillar-sub { font-size: 0.95rem; color: var(--text-secondary); margin-top: 12px; line-height: 1.85; font-weight: 300; }
+
+        .protocol-card { background: #0f172a; color: white; border-radius: 0px; overflow: hidden; position: relative; margin-bottom: 80px; border: 1px solid rgba(255,255,255,0.04); }
+        .protocol-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent-blue); }
+        .protocol-header { padding: 56px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: baseline; }
+        .p-meta { max-width: 70%; }
+        .p-tier { font-family: 'JetBrains Mono', monospace; color: var(--accent-blue); font-size: 0.6rem; text-transform: uppercase; display: block; margin-bottom: 20px; letter-spacing: 0.3em; font-weight: 700; }
+        .p-title { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: white; line-height: 1.1; letter-spacing: -0.01em; }
+        .p-subtitle { color: #64748b; font-size: 0.9rem; margin-top: 12px; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+        .p-price { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: white; text-align: right; letter-spacing: 0.02em; font-weight: 400; line-height: 1; }
+        .p-price sup { vertical-align: super; font-size: 0.75rem; margin-right: 2px; opacity: 0.6; }
+        .p-price span { font-size: 0.55rem; color: #475569; text-transform: uppercase; display: block; font-family: 'JetBrains Mono', sans-serif; font-weight: 700; margin-top: 14px; letter-spacing: 0.25em; }
+        .protocol-body { padding: 0; display: grid; grid-template-columns: 1.25fr 0.75fr; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .p-col { padding: 56px; }
+        .p-col:first-child { border-right: 1px solid rgba(255,255,255,0.05); }
+        .p-col h4 { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 32px; color: #475569; letter-spacing: 0.3em; display: flex; align-items: center; gap: 12px; }
+        .p-col h4::after { content: ''; height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+        .p-col p { color: #cbd5e1; font-size: 1.1rem; line-height: 1.9; font-weight: 300; }
+        .p-list { list-style: none; }
+        .p-list li { margin-bottom: 24px; color: #cbd5e1; font-size: 0.9rem; display: flex; align-items: start; gap: 16px; line-height: 1.7; font-weight: 300; }
+        .p-list li i { color: var(--accent-blue); margin-top: 6px; font-size: 0.55rem; }
+        .protocol-footer { background: rgba(255,255,255,0.01); padding: 40px 56px; display: flex; justify-content: flex-end; align-items: center; }
+        .p-btn { background: white; color: #0f172a; padding: 20px 64px; font-weight: 800; text-transform: uppercase; transition: 0.4s; letter-spacing: 0.3em; font-size: 0.75rem; border-radius: 0; border: 1px solid white; }
+        .p-btn:hover { background: var(--accent-blue); color: white; transform: translateY(-4px); }
+
+        /* Banner Image Stylings */
+        .banner-image-container { width: 100%; border: 1px solid var(--border-light); margin-bottom: 0px; position: relative; overflow: hidden; background: #000; }
+        .banner-image-container img { width: 100%; height: 500px; object-fit: cover; opacity: 0.95; display: block; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .banner-image-container:hover img { transform: scale(1.02); }
+        .banner-label { position: absolute; bottom: 20px; left: 24px; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: white; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); padding: 8px 12px; letter-spacing: 0.2em; text-transform: uppercase; border-left: 2px solid var(--accent-blue); }
+
+        /* --- INTELLIGENCE VIEW --- */
+        .intel-portal-grid { display: grid; grid-template-columns: 1.75fr 1.25fr; gap: 60px; }
+        .featured-brief-card { background: var(--text-primary); color: white; padding: 80px 60px; border-radius: 0; border: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; }
+        .featured-brief-card h3 { font-family: 'DM Serif Display', serif; font-size: 3.2rem; margin-bottom: 30px; line-height: 1; letter-spacing: -0.03em; }
+        .featured-brief-card p { font-size: 1.15rem; line-height: 1.85; opacity: 0.85; margin-bottom: 48px; font-weight: 300; }
+        .intel-archive-list { border-left: 1px solid var(--border-light); padding-left: 60px; }
+        .archive-entry { margin-bottom: 64px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        .archive-entry:hover { transform: translateX(12px); }
+        .archive-entry h4 { font-family: 'DM Serif Display', serif; font-size: 1.9rem; margin-bottom: 12px; letter-spacing: -0.01em; }
+        .archive-entry p { font-size: 1rem; color: var(--text-secondary); font-weight: 300; line-height: 1.6; }
+
+        /* --- LEGAL DOC ARTICLES (WHITE-PAPER STYLE) --- */
+        .legal-doc { background: white; padding: 120px 100px; border: 1px solid var(--border-light); max-width: 1000px; margin: 0 auto; box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.05); }
+        .doc-header { border-bottom: 1px solid var(--border-light); padding-bottom: 48px; margin-bottom: 64px; }
+        .legal-doc h3 { font-family: 'DM Serif Display', serif; font-size: 3.8rem; margin-bottom: 0; color: var(--text-primary); line-height: 1; letter-spacing: -0.03em; }
+        .legal-doc p { margin-bottom: 36px; font-size: 1.15rem; line-height: 1.85; color: var(--text-primary); opacity: 0.95; font-weight: 400; letter-spacing: 0.01em; }
+        .doc-section { margin-top: 80px; border-top: 2px solid var(--text-primary); padding-top: 48px; }
+        .doc-section h4 { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 24px; color: var(--text-primary); }
+
+        /* --- SIGNUP / VETTING VIEW (NARROW) --- */
+        .vetting-container { max-width: 600px; margin: 0 auto; background: white; border: 1px solid var(--border-light); padding: 80px 60px; }
+        .form-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+        .field-group { display: flex; flex-direction: column; gap: 8px; }
+        .field-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); }
+        .form-input { width: 100%; padding: 18px; border: 1px solid var(--border-light); font-family: inherit; font-size: 1rem; outline: none; transition: all 0.3s; border-radius: 0; }
+        .form-input:focus { border-color: var(--text-primary); background-color: #fafafa; }
+        .legal-block { background: #f8fafc; padding: 40px; border: 1px solid #e2e8f0; margin-top: 60px; }
+        .legal-text { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #64748b; line-height: 1.8; margin-bottom: 20px; }
+
+        /* --- FOOTER: INSTITUTIONAL SLEEK --- */
+        .footer { background: white; padding: 100px 0 60px 0; border-top: 1px solid var(--border-light); margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.4fr; gap: 80px; margin-bottom: 80px; }
+        .footer-brand .brand-mark { width: 32px; height: 32px; font-size: 0.8rem; margin-bottom: 24px; }
+        .footer-brand h2 { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.3rem; letter-spacing: 0.12em; color: var(--text-primary); margin-bottom: 20px; }
+        .footer-brand p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; max-width: 320px; font-weight: 300; border-left: 2px solid var(--border-light); padding-left: 24px; }
+        .footer-col h4 { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-primary); margin-bottom: 40px; opacity: 0.8; }
+        .footer-link-stack { display: flex; flex-direction: column; gap: 14px; }
+        .footer-link-stack button { color: var(--text-secondary); font-size: 0.95rem; transition: all 0.2s ease; text-align: left; font-weight: 400; padding: 0; border: none; background: none; white-space: nowrap; }
+        .footer-link-stack button:hover { color: var(--text-primary); transform: translateX(4px); }
+        .node-entry { margin-bottom: 40px; }
+        .node-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--accent-blue); letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 8px; }
+        .node-addr { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; font-weight: 300; }
+        
+        /* Revised Marquee: Narrower and More Densely Populated */
+        .marquee-banner { background: var(--bg-root); color: var(--text-secondary); padding: 12px 0; overflow: hidden; white-space: nowrap; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+        .marquee-track { display: inline-flex; animation: scroll-left-to-right 50s linear infinite; }
+        .marquee-text { font-family: 'Cinzel', serif; font-size: 0.75rem; text-transform: uppercase; padding: 0 40px; letter-spacing: 0.4em; font-weight: 700; opacity: 0.6; }
+        @keyframes scroll-left-to-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+        @media (max-width: 1000px) {
+            .footer-grid, .intel-portal-grid, .sq-layout, .hero-banner, .testimonial-grid { grid-template-columns: 1fr; gap: 40px; }
+            .interface-card { transform: none; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="brand-lockup" onclick="showView('home')">
+                <div class="brand-mark">AB</div>
+                <div class="brand-logo">THE ADAM BUREAU <span class="brand-sub">Private Advisory</span></div>
+                <span class="brand-arabic">آدم</span>
+            </div>
+            <div class="nav-links">
+                <button class="nav-btn" onclick="showView('advisory')">Advisory</button>
+                <button class="nav-btn" onclick="showView('intelligence')">Intelligence</button>
+                <button class="nav-btn" onclick="showView('signup')">Request Access</button>
+            </div>
+            <button class="cta-btn" onclick="window.open('https://calendly.com/louis-017v/30min', '_blank')">Secure Comms</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HOME VIEW -->
+        <div id="home" class="page-view active">
+            <section class="square-hero-container">
+                <div class="sq-layout">
+                    <div class="sq-text-col">
+                        <h1 class="sq-headline">Secure Your Capital.<span>Access Global Opportunities.</span></h1>
+                        <p class="sq-subheadline">Architecting the frameworks to protect your reserves and the intelligence to secure exclusive industrial opportunities. Operate with absolute confidence.</p>
+                        <button onclick="showView('signup')" class="sq-btn-primary">Initiate Mandate</button>
+                    </div>
+                    <div class="sq-visual-col">
+                        <div class="interface-card">
+                            <div class="if-header"><span class="mono">AB // SYSTEM STATUS</span><div class="if-status"><i class="fas fa-circle" style="color: #22c55e; font-size: 0.5rem;"></i> OPERATIONAL</div></div>
+                            <div class="if-body">
+                                <div class="if-metric-row"><div><span class="if-label">Sovereign Liquidity</span><span class="if-val">94.2%</span></div><div style="text-align: right;"><span class="if-label">Risk Exposure</span><span class="if-val" style="color: #64748b;">Low</span></div></div>
+                                <div class="if-graph-area"><div class="if-graph-line"></div></div>
+                                <div class="if-footer" style="margin-top: 24px;"><span class="mono" style="font-size: 0.6rem; color: #94a3b8;">NODES: ZURICH // DUBAI // SINGAPORE</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HOMEPAGE BANNER SECTION (Above Principal Advisory) -->
+            <div class="banner-image-container">
+                <img src="IMG_0724.jpg" alt="NL Morake - Strategic View" onerror="this.src='https://placehold.co/1200x500/0f172a/64748b?text=NL+MORAKE+STRATEGIC+OVERVIEW'">
+                <div class="banner-label">FILE // HOMEPAGE_PRINCIPAL_DOSSIER.JPG // NODES: JHB_DBX_SIN</div>
+            </div>
+
+            <!-- Refined Principal Advisory Section -->
+            <section class="container">
+                <div class="hero-banner">
+                    <div class="hero-text">
+                        <span class="hero-label">Principal Advisory</span>
+                        <h2 class="sq-headline">Asymmetric Insight.<span>Strategic Order.</span></h2>
+                        <p style="color: var(--text-secondary); max-width: 540px; border-left: 2px solid var(--accent-blue); padding-left: 24px; font-weight: 300; font-size: 1.1rem; line-height: 1.7;">Global Strategic Advisory & Risk Architecture. We provide sovereign liquidity, adversarial risk audits, and strategic asset allocation for the modern industrialist. We operate in the shadows to protect the assets that matter most.</p>
+                    </div>
+                    <div class="profile-dossier">
+                        <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 32px;">
+                            <img src="IMG_0724.jpg" alt="NL Morake" style="width: 90px; height: 90px; border-radius: 2px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2);">
+                            <div>
+                                <h3 class="serif" style="font-size: 1.6rem; letter-spacing: -0.01em; color: white;">N.L. Morake</h3>
+                                <span class="mono" style="color: var(--accent-blue); font-size: 0.65rem; font-weight: 700;">Principal Operative // آدم</span>
+                            </div>
+                        </div>
+                        <div class="spec-grid">
+                            <div><span class="if-label" style="color: rgba(255,255,255,0.4);">Primary Mandate</span><span class="mono" style="color: white; font-size: 0.75rem;">Industrial Continuity</span></div>
+                            <div><span class="if-label" style="color: rgba(255,255,255,0.4);">Clearance Level</span><span class="mono" style="color: white; font-size: 0.75rem;">LEVEL_0 / PRINCIPAL</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AS FEATURED IN SECTION (Below Principal Advisory) -->
+            <section class="featured-strip">
+                <div class="container featured-content">
+                    <span class="featured-label">PRESS // MENTIONS</span>
+                    <!-- Business Insider -->
+                    <svg class="press-logo" viewBox="0 0 450 40" xmlns="http://www.w3.org/2000/svg">
+                        <text x="0" y="30" font-family="Inter, sans-serif" font-weight="900" font-size="28" letter-spacing="-1">BUSINESS INSIDER</text>
+                    </svg>
+                    <!-- Forbes -->
+                    <svg class="press-logo" viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
+                        <text x="0" y="32" font-family="DM Serif Display, serif" font-weight="400" font-size="34">Forbes</text>
+                    </svg>
+                    <!-- Entrepreneur -->
+                    <svg class="press-logo" viewBox="0 0 240 40" xmlns="http://www.w3.org/2000/svg">
+                        <text x="0" y="30" font-family="Inter, sans-serif" font-weight="600" font-size="28">Entrepreneur</text>
+                    </svg>
+                    <!-- MarketWatch -->
+                    <svg class="press-logo" viewBox="0 0 240 40" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="5" width="40" height="30" fill="#0f172a" />
+                        <text x="5" y="28" fill="white" font-family="Inter, sans-serif" font-weight="900" font-size="22">MW</text>
+                        <text x="50" y="28" font-family="Inter, sans-serif" font-weight="800" font-size="24">MarketWatch</text>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- Testimonial Section Restoration -->
+            <section class="testimonial-section">
+                <div class="container">
+                    <div style="margin-bottom: 80px;">
+                        <span class="hero-label">Principal Testimonials</span>
+                        <h2 class="serif" style="font-size: 3rem;">Validated Strategic Excellence.</h2>
+                    </div>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-item">
+                            <p class="testimonial-quote">"The Adam Bureau provided the jurisdictional clarity we lacked. Their 'Tri-Node' approach to liquidity saved our family office during the 2023 regional banking friction."</p>
+                            <div class="testimonial-meta">
+                                <span class="tm-name">Marcus V.</span>
+                                <span class="tm-jurisdiction">Zurich, CH</span>
+                                <span class="tm-title">Principal // Multi-Family Office</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-item">
+                            <p class="testimonial-quote">"Discrete, technically proficient, and strategically sound. The Red Team audit revealed vulnerabilities in our digital infrastructure that our internal IT team had missed for years."</p>
+                            <div class="testimonial-meta">
+                                <span class="tm-name">Elena R.</span>
+                                <span class="tm-jurisdiction">Dubai, UAE</span>
+                                <span class="tm-title">Family Office Principal</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-item">
+                            <p class="testimonial-quote">"When we initiated our industrial succession, Morake's framework for separating economic interest from operational command was the catalyst for a peaceful transition."</p>
+                            <div class="testimonial-meta">
+                                <span class="tm-name">David L.</span>
+                                <span class="tm-jurisdiction">Singapore, SG</span>
+                                <span class="tm-title">Chairman // Logistics Group</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ADVISORY VIEW -->
+        <div id="advisory" class="page-view">
+            <!-- ADVISORY HERO BANNER -->
+            <div class="banner-image-container">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" alt="Advisory Mandate Visual" onerror="this.src='https://placehold.co/1200x500/0f172a/64748b?text=INSTITUTIONAL+MANDATE+ARCHIVE'">
+                <div class="banner-label">SIGNAL // ADVISORY_MANDATE_VISUAL_01 // SECURE_ARCHIVE</div>
+            </div>
+
+            <section class="container section-padding">
+                <div class="content-header" style="margin-bottom: 100px;">
+                    <span class="hero-label">Institutional Mandate</span>
+                    <h2 class="serif">The Architecture of Risk & Capital.</h2>
+                    <p style="font-size: 1.4rem; color: var(--text-secondary); max-width: 850px; margin-top: 32px; line-height: 1.7; font-weight: 300;">We engineer structural independence for the modern principal. Our mandates provide the rigorous framework required for global capital mobility, asset shielding, and industrial continuity.</p>
+                </div>
+
+                <div class="pillars-grid">
+                    <div class="pillar-col">
+                        <span class="doc-label">Division 01</span>
+                        <h3 class="serif" style="font-size: 2.2rem; margin-bottom: 30px;">Strategic Advisory.</h3>
+                        <div class="pillar-item">
+                            <div class="pillar-head">The Shadow Board</div>
+                            <div class="pillar-sub">Independent, adversarial counsel serving as a trusted second opinion for the Principal, neutralizing cognitive blind spots in multi-billion rand operations.</div>
+                        </div>
+                        <div class="pillar-item">
+                            <div class="pillar-head">Sovereign Succession</div>
+                            <div class="pillar-sub">Engineering the absolute transition of power. Governance protocols that ensure legacy industrial assets endure across generational shifts.</div>
+                        </div>
+                    </div>
+                    <div class="pillar-col">
+                        <span class="doc-label">Division 02</span>
+                        <h3 class="serif" style="font-size: 2.2rem; margin-bottom: 30px;">Risk Architecture.</h3>
+                        <div class="pillar-item">
+                            <div class="pillar-head">Liquidity Rails</div>
+                            <div class="pillar-sub">Establishing robust, non-SWIFT settlement channels to ensure capital remains accessible and fluid regardless of regional banking friction.</div>
+                        </div>
+                        <div class="pillar-item">
+                            <div class="pillar-head">Asset Partitioning</div>
+                            <div class="pillar-sub">Constructing absolute legal and technical barriers between personal reserves and operational business liabilities to guarantee family security.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROTOCOL LIST -->
+                <div class="protocol-list">
+                    <!-- PROTOCOL 01 -->
+                    <div class="protocol-card">
+                        <div class="protocol-header">
+                            <div class="p-meta">
+                                <span class="p-tier">MANDATE PROTOCOL 01</span>
+                                <h3 class="p-title serif">Sovereign Banking & Mobility</h3>
+                                <p class="p-subtitle">Relatable Freedom. Global Settlement. Institutional Security.</p>
+                            </div>
+                            <div class="p-price"><sup>$</sup>4,500 <span>Execution Fee</span></div>
+                        </div>
+                        <div class="protocol-body">
+                            <div class="p-col">
+                                <h4>The Principal Mandate</h4>
+                                <p style="margin-bottom: 24px;">Engineering the total exit from jurisdictional banking risk without sacrificing the lifestyle you demand. This protocol bridges the gap between elite Swiss private banking and the speed of modern finance.</p>
+                                <p>We enable the Principal to settle high-value transactions across global <strong>payment rails</strong>—maintaining the seamless convenience of <strong>Visa, Amex, and Mastercard</strong> while anchoring core reserves in secure, <strong>non-custodial</strong> digital environments. It is the ultimate <strong>risk-adjusted</strong> approach to capital mobility.</p>
+                            </div>
+                            <div class="p-col">
+                                <h4>The Deliverable</h4>
+                                <ul class="p-list">
+                                    <li><i class="fas fa-university"></i> <strong>Institutional Bridge:</strong> Direct entry into Tier-1 Swiss nodes with integrated high-limit <strong>Amex</strong> and <strong>Visa Black</strong> connectivity for global lifestyle spend.</li>
+                                    <li><i class="fas fa-link"></i> <strong>Sovereign Rails:</strong> Setup of secure <strong>non-custodial</strong> payment bridges for near-instant, private global settlement, bypassing traditional liquidity chokepoints.</li>
+                                    <li><i class="fas fa-project-diagram"></i> <strong>Capital Shielding Blueprint:</strong> A customized <strong>risk-adjusted</strong> map for moving assets between traditional fiat and digital gold, optimized for total accessibility.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="protocol-footer"><button onclick="window.open('https://calendly.com/louis-017v/30min', '_blank')" class="p-btn">Secure Mandate</button></div>
+                    </div>
+
+                    <!-- PROTOCOL 02 -->
+                    <div class="protocol-card">
+                        <div class="protocol-header">
+                            <div class="p-meta">
+                                <span class="p-tier">MANDATE PROTOCOL 02</span>
+                                <h3 class="p-title serif">Total Asset Defense</h3>
+                                <p class="p-subtitle">Adversarial Stress-Testing & Personal Shielding.</p>
+                            </div>
+                            <div class="p-price"><sup>$</sup>6,000 <span>Audit Fee</span></div>
+                        </div>
+                        <div class="protocol-body">
+                            <div class="p-col">
+                                <h4>The Principal Mandate</h4>
+                                <p>Assuming the perspective of the predator to protect the Principal. We perform deep-vector adversarial audits of your digital, physical, and legal infrastructure to identify and neutralize vulnerabilities before they can be exploited.</p>
+                            </div>
+                            <div class="p-col">
+                                <h4>The Deliverable</h4>
+                                <ul class="p-list">
+                                    <li><i class="fas fa-fingerprint"></i> <strong>OSINT Neutralization:</strong> Total scrub and hardening of the Principal's deep-web footprint.</li>
+                                    <li><i class="fas fa-shield-alt"></i> <strong>Operational Stress-Test:</strong> Auditing estates, logistics, and family office protocols for "kill-chain" leaks.</li>
+                                    <li><i class="fas fa-file-contract"></i> <strong>Defense Matrix:</strong> An actionable prioritized report on systemic risk vulnerabilities.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="protocol-footer"><button onclick="window.open('https://calendly.com/louis-017v/30min', '_blank')" class="p-btn">Initiate Audit</button></div>
+                    </div>
+
+                    <!-- PROTOCOL 03 -->
+                    <div class="protocol-card">
+                        <div class="protocol-header">
+                            <div class="p-meta">
+                                <span class="p-tier">MANDATE PROTOCOL 03</span>
+                                <h3 class="p-title serif">The Industrial Deal Room</h3>
+                                <p class="p-subtitle">Exclusive Access to Off-Market Business Mandates.</p>
+                            </div>
+                            <div class="p-price"><sup>$</sup>8,500 <span>Annual Retainer</span></div>
+                        </div>
+                        <div class="protocol-body">
+                            <div class="p-col">
+                                <h4>The Principal Mandate</h4>
+                                <p>Principal-to-Principal access to the private pipeline. We source, vet, and provide direct access to manufacturing, logistics, and real asset opportunities with EBITDA >$1.5M that never reach the open market.</p>
+                            </div>
+                            <div class="p-col">
+                                <h4>The Deliverable</h4>
+                                <ul class="p-list">
+                                    <li><i class="fas fa-bullseye"></i> <strong>Strategic Sourcing:</strong> Precision deal flow aligned with your industrial vertical and capital map.</li>
+                                    <li><i class="fas fa-handshake"></i> <strong>Private Engagement:</strong> Secure introductions directly to business owners and primary decision-makers.</li>
+                                    <li><i class="fas fa-folder-open"></i> <strong>Exclusivity Stream:</strong> Priority look at 3 pre-vetted, off-market deal memos per annum.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="protocol-footer"><button onclick="window.open('https://calendly.com/louis-017v/30min', '_blank')" class="p-btn">Access Deal Room</button></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ADVISORY PAGE BANNER IMAGE SECTION (Bottom of Page) -->
+            <div class="banner-image-container">
+                <img src="IMG_0724.jpg" alt="NL Morake - Principal Action Shot" onerror="this.src='https://placehold.co/1200x500/0f172a/64748b?text=NL+MORAKE+PRINCIPAL+MANDATE'">
+                <div class="banner-label">FILE // ADVISORY_PRINCIPAL_CAPTURE.JPG // NODES: JHB_DBX_SIN</div>
+            </div>
+        </div>
+
+        <!-- INTELLIGENCE VIEW -->
+        <div id="intelligence" class="page-view">
+            <!-- INTELLIGENCE HERO BANNER -->
+            <div class="banner-image-container">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="Strategic Intelligence Visual" onerror="this.src='https://placehold.co/1200x500/0f172a/64748b?text=STRATEGIC+INTELLIGENCE+ARCHIVE'">
+                <div class="banner-label">SIGNAL // INTEL_ARCHIVE_VISUAL_01 // CLASSIFIED</div>
+            </div>
+
+            <section class="container section-padding">
+                <div class="content-header" style="margin-bottom: 100px;">
+                    <span class="hero-label">Strategic Intelligence</span>
+                    <h2 class="serif">The Friday Audit Room.</h2>
+                    <p style="font-size: 1.25rem; color: var(--text-secondary); max-width: 800px; margin-top: 32px; font-weight: 300;">A crisp, navigable record of thought. High-density analysis of sovereign risk, capital mobility, and industrial continuity.</p>
+                </div>
+                <div class="intel-portal-grid">
+                    <div class="featured-brief-card">
+                        <span class="mono" style="color: var(--accent-blue); display: block; margin-bottom: 24px; font-weight: 700;">FEATURED // OCT 2024</span>
+                        <h3 class="serif">The Sovereign Liquidity Thesis</h3>
+                        <p>Why High Net Worth Individuals must move toward multi-node capital maps for absolute independence and fluid movement in an era of weaponized finance.</p>
+                        <button onclick="showView('briefing-sovereign')" class="p-btn" style="background: white; color: var(--text-primary); border: none;">Access Full Briefing</button>
+                    </div>
+                    <div class="intel-archive-list">
+                        <div class="archive-entry" onclick="showView('briefing-sovereign')">
+                            <span class="mono" style="color: var(--accent-blue); font-size: 0.65rem; margin-bottom: 16px; display: block;">CLASSIFIED // JURISDICTION_GLOBAL</span>
+                            <h4 class="serif">The Sovereign Liquidity Thesis</h4>
+                            <p>Analysis of the "Tri-Node Protocol" and jurisdictional fluidness in non-SWIFT settlement rails.</p>
+                        </div>
+                        <div class="archive-entry">
+                            <span class="mono" style="color: var(--accent-blue); font-size: 0.65rem; margin-bottom: 16px; display: block;">AUDIT // THREAT_NEUTRALIZATION</span>
+                            <h4 class="serif">The Red Team Protocol</h4>
+                            <p>Adversarial stress-testing of digital footprints and family office security frameworks.</p>
+                        </div>
+                        <div class="archive-entry">
+                            <span class="mono" style="color: var(--accent-blue); font-size: 0.65rem; margin-bottom: 16px; display: block;">GOVERNANCE // LEGACY_CONTINUITY</span>
+                            <h4 class="serif">Industrial Succession</h4>
+                            <p>The logic of transition: Separating economic interest from operational command in industrial groups.</p>
+                        </div>
+                        <div class="archive-entry">
+                            <span class="mono" style="color: var(--accent-blue); font-size: 0.65rem; margin-bottom: 16px; display: block;">STRATEGY // NODE_ARBITRAGE</span>
+                            <h4 class="serif">Jurisdictional Arbitrage</h4>
+                            <p>Strategic positioning of reserves in Zurich, Dubai, and Singapore to optimize legal shielding.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- REQUEST ACCESS VIEW -->
+        <div id="signup" class="page-view">
+            <section class="container section-padding">
+                <div class="vetting-container">
+                    <div style="text-align: center; margin-bottom: 60px;">
+                        <div class="brand-mark" style="margin: 0 auto 32px auto;">AB</div>
+                        <span class="hero-label">Access Vetting Protocol</span>
+                        <h2 class="serif" style="font-size: 3rem; margin-bottom: 12px; letter-spacing: -0.02em;">Submit Vetting Dossier</h2>
+                        <p style="color: var(--text-secondary); max-width: 450px; margin: 0 auto; font-weight: 300; font-size: 0.95rem;">Entry is granted only to verified principals and authorized representatives.</p>
+                    </div>
+
+                    <form onsubmit="event.preventDefault(); alert('Vetting Dossier Received. System is auditing.');">
+                        <div class="form-grid">
+                            <div class="field-group"><label class="field-label">Principal Full Name</label><input type="text" class="form-input" placeholder="Legal Identity" required></div>
+                            <div class="field-group"><label class="field-label">Entity / Family Office</label><input type="text" class="form-input" placeholder="Primary Mandate Subject" required></div>
+                            <div class="field-group"><label class="field-label">Industrial Sector</label><input type="text" class="form-input" placeholder="e.g., Logistics, Manufacturing" required></div>
+                            <div class="field-group"><label class="field-label">Jurisdiction of Interest</label><input type="text" class="form-input" placeholder="Primary Node for Advisory" required></div>
+                            <div class="field-group"><label class="field-label">Email Address</label><input type="email" class="form-input" placeholder="Encrypted / Office Mail" required></div>
+                            <div class="field-group"><label class="field-label">Signal / Mobile Identifier</label><input type="tel" class="form-input" placeholder="+00 000 000 0000" required></div>
+                        </div>
+                        <div class="legal-block">
+                            <p class="legal-text"><strong>1. PRE-TRANSACTION DISCLOSURE:</strong> This submission does not constitute a commitment, contract, or formal mandate to transact.</p>
+                            <p class="legal-text"><strong>2. GRATUITOUS SERVICE:</strong> The vetting process is a gratuitous administrative service and is non-billable.</p>
+                            <p class="legal-text"><strong>3. POPIA & PRIVACY (RSA):</strong> Processing occurs in accordance with the Protection of Personal Information Act 4 of 2013 (RSA).</p>
+                        </div>
+                        <button type="submit" class="p-btn" style="width: 100%; margin-top: 48px; background: var(--text-primary); color: white;">Submit for System Audit</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- REQUEST PAGE HERO BANNER (REVISED: Wideformat below form section, outside container) -->
+            <div class="banner-image-container">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Vetting Protocol Visual" onerror="this.src='https://placehold.co/1200x500/0f172a/64748b?text=VETTING+PROTOCOL+INITIATED'">
+                <div class="banner-label">SIGNAL // VETTING_SECURE_CHANNEL // ENCRYPTION: ACTIVE</div>
+            </div>
+        </div>
+
+        <!-- ONE-OFF SERVICES VIEW -->
+        <div id="services" class="page-view">
+            <!-- SERVICES HERO BANNER -->
+            <div class="banner-image-container">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2070&auto=format&fit=crop" alt="Deployment Protocols" onerror="this.src='https://placehold.co/1200x500/0f172a/64748b?text=RAPID+DEPLOYMENT+PROTOCOLS'">
+                <div class="banner-label">SIGNAL // RAPID_DEPLOYMENT_RESOURCES // NODE: GLOBAL</div>
+            </div>
+
+            <section class="container section-padding">
+                <div class="content-header" style="margin-bottom: 80px;">
+                    <span class="hero-label">Rapid Deployment</span>
+                    <h2 class="serif">Sovereign Onboarding.</h2>
+                    <p style="font-size: 1.4rem; color: var(--text-secondary); max-width: 850px; margin-top: 32px; line-height: 1.7; font-weight: 300;">Immediate technical onboarding for the mobile principal. These one-off mandates provide the essential infrastructure for global settlement and operational presence.</p>
+                </div>
+
+                <div class="protocol-list">
+                    <!-- TIER A: BASIC ACCESS -->
+                    <div class="protocol-card">
+                        <div class="protocol-header">
+                            <div class="p-meta">
+                                <span class="p-tier">DEPLOYMENT TIER A</span>
+                                <h3 class="p-title serif">Foundational Access</h3>
+                                <p class="p-subtitle">Essential Private Banking & Liquidity Mobility.</p>
+                            </div>
+                            <div class="p-price"><sup>$</sup>499 <span>Setup Fee</span></div>
+                        </div>
+                        <div class="protocol-body">
+                            <div class="p-col">
+                                <h4>The Mandate</h4>
+                                <p>Securing the baseline for jurisdictional independence. This protocol establishes a secure private banking relationship within a stable node, ensuring your personal liquidity remains shielded and accessible.</p>
+                            </div>
+                            <div class="p-col">
+                                <h4>Included Deliverables</h4>
+                                <ul class="p-list">
+                                    <li><i class="fas fa-university"></i> <strong>Banking Conduit:</strong> Facilitated onboarding for a Tier-1 private bank account in a high-sovereignty jurisdiction.</li>
+                                    <li><i class="fas fa-credit-card"></i> <strong>Debit Architecture:</strong> Full setup and delivery of a global high-limit debit card for immediate lifestyle spend.</li>
+                                    <li><i class="fas fa-lock"></i> <strong>Secure Onboarding:</strong> End-to-end guidance through KYC/AML protocols to ensure successful acceptance.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="protocol-footer"><button onclick="window.open('https://calendly.com/louis-017v/30min', '_blank')" class="p-btn">Deploy Tier A</button></div>
+                    </div>
+
+                    <!-- TIER B: SOVEREIGN LINK -->
+                    <div class="protocol-card">
+                        <div class="protocol-header" style="border-top: 4px solid var(--accent-blue);">
+                            <div class="p-meta">
+                                <span class="p-tier">DEPLOYMENT TIER B</span>
+                                <h3 class="p-title serif">Asymmetric Hybrid Link</h3>
+                                <p class="p-subtitle">Private Banking + Self-Custody Stablecoin Rails.</p>
+                            </div>
+                            <div class="p-price"><sup>$</sup>699 <span>Setup Fee</span></div>
+                        </div>
+                        <div class="protocol-body">
+                            <div class="p-col">
+                                <h4>The Mandate</h4>
+                                <p>The bridge between traditional reserve banking and the speed of digital gold. Setup on <strong>Visa/Mastercard payment rails</strong>, this protocol provides the Principal with <strong>global, unrestricted usage</strong> across all jurisdictions.</p>
+                            </div>
+                            <div class="p-col">
+                                <h4>Included Deliverables</h4>
+                                <ul class="p-list">
+                                    <li><i class="fas fa-check"></i> <strong>All Tier A Benefits:</strong> Full private banking and debit card infrastructure.</li>
+                                    <li><i class="fas fa-coins"></i> <strong>Self-Custody Bridge:</strong> Specialized crypto-card setup on <strong>Visa/Mastercard rails</strong> for global, unrestricted usage of USDC/T reserves.</li>
+                                    <li><i class="fas fa-exchange-alt"></i> <strong>Liquidity Rails:</strong> Integrated channels for near-instant conversion between digital stablecoins and fiat reserves.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="protocol-footer"><button onclick="window.open('https://calendly.com/louis-017v/30min', '_blank')" class="p-btn">Deploy Tier B</button></div>
+                    </div>
+
+                    <!-- TIER C: FULL INSTITUTIONAL -->
+                    <div class="protocol-card">
+                        <div class="protocol-header" style="background: rgba(37,99,235,0.05);">
+                            <div class="p-meta">
+                                <span class="p-tier">DEPLOYMENT TIER C</span>
+                                <h3 class="p-title serif">Institutional Total Command</h3>
+                                <p class="p-subtitle">Corporate Presence, Operations, & Banking Shield.</p>
+                            </div>
+                            <div class="p-price"><sup>$</sup>999 <span>Setup Fee</span></div>
+                        </div>
+                        <div class="protocol-body">
+                            <div class="p-col">
+                                <h4>The Mandate</h4>
+                                <p>The ultimate operational blueprint. This mandate establishes your full business presence and banking infrastructure, providing the absolute separation between principal and entity required for total asset protection.</p>
+                            </div>
+                            <div class="p-col">
+                                <h4>Included Deliverables</h4>
+                                <ul class="p-list">
+                                    <li><i class="fas fa-plus"></i> <strong>All Tier A & B Benefits:</strong> Full personal banking and digital liquidity setup.</li>
+                                    <li><i class="fas fa-city"></i> <strong>Operational Base:</strong> Business account setup and Virtual Office integration (Phone, Office Number).</li>
+                                    <li><i class="fas fa-headset"></i> <strong>Command Center:</strong> Professional call answering and mail redirection services to manage local presence remotely.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="protocol-footer"><button onclick="window.open('https://calendly.com/louis-017v/30min', '_blank')" class="p-btn">Deploy Tier C</button></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- BRIEFING PAGES & LEGAL PAGES -->
+        <div id="popia" class="page-view">
+            <section class="container section-padding">
+                <div class="legal-doc">
+                    <div class="doc-header"><span class="doc-label">NOTICE // RSA COMPLIANCE // POPIA</span><h3 class="serif">POPIA Disclosure</h3></div>
+                    <p>In accordance with the Protection of Personal Information Act, 4 of 2013 ("POPIA") of the Republic of South Africa, The Adam Bureau is committed to protecting the privacy of our Principals...</p>
+                    <button onclick="showView('home')" class="p-btn" style="background: var(--text-primary); color: white; margin-top: 64px;">Return to Overview</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="brand-mark">AB</div>
+                    <h2 class="classical">THE ADAM BUREAU</h2>
+                    <p>Global Strategic Advisory & Risk Architecture. Engineering structural independence for the modern industrialist.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>The System</h4>
+                    <div class="footer-link-stack">
+                        <button onclick="showView('home')">Overview</button>
+                        <button onclick="showView('advisory')">Advisory</button>
+                        <button onclick="showView('intelligence')">Intelligence</button>
+                        <button onclick="showView('signup')">Request Access</button>
+                        <button onclick="showView('services')" style="color: var(--accent-blue); font-weight: 700;">One-Off Services</button>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Governance</h4>
+                    <div class="footer-link-stack">
+                        <button onclick="showView('signup')">Bureau Manifesto</button>
+                        <button onclick="showView('signup')">Risk Methodology</button>
+                        <button onclick="showView('popia')">POPIA Notice</button>
+                        <button onclick="showView('signup')">Terms of Service</button>
+                        <button onclick="showView('signup')">Privacy Policy</button>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Office</h4>
+                    <div class="node-entry"><span class="node-label">Johannesburg Node</span><p class="node-addr">Spaces Atrium on 5th,<br>5th St, Sandton, 2196<br>Johannesburg, RSA</p></div>
+                    <div class="node-entry"><span class="node-label">Dubai Node</span><p class="node-addr">Spaces Boulevard Plaza,<br>Tower 1, Downtown Dubai,<br>UAE</p></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Marquee Banner: Triple-instance text for denser flow and narrower padding -->
+        <div class="marquee-banner">
+            <div class="marquee-track">
+                <span class="marquee-text">SOVEREIGN LIQUIDITY • RISK ARCHITECTURE • ASSET ALLOCATION • </span>
+                <span class="marquee-text">SOVEREIGN LIQUIDITY • RISK ARCHITECTURE • ASSET ALLOCATION • </span>
+                <span class="marquee-text">SOVEREIGN LIQUIDITY • RISK ARCHITECTURE • ASSET ALLOCATION • </span>
+                <span class="marquee-text">SOVEREIGN LIQUIDITY • RISK ARCHITECTURE • ASSET ALLOCATION • </span>
+                <span class="marquee-text">SOVEREIGN LIQUIDITY • RISK ARCHITECTURE • ASSET ALLOCATION • </span>
+                <span class="marquee-text">SOVEREIGN LIQUIDITY • RISK ARCHITECTURE • ASSET ALLOCATION • </span>
+            </div>
+        </div>
+        
+        <div class="container" style="padding: 32px 0; text-align: center; color: var(--text-secondary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.25em; font-weight: 600;">&copy; 2024 THE ADAM BUREAU. PRIVATE ADVISORY. ALL RIGHTS RESERVED.</div>
+    </footer>
+
+    <script>
+        function showView(viewId) {
+            document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
+            const target = document.getElementById(viewId);
+            if(target) target.classList.add('active');
+            window.scrollTo(0, 0);
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            const btns = document.querySelectorAll('.nav-btn');
+            if(viewId === 'advisory') btns[0].classList.add('active');
+            if(viewId === 'intelligence' || viewId.startsWith('briefing')) btns[1].classList.add('active');
+            if(viewId === 'signup') btns[2].classList.add('active');
+        }
+    </script>
+</body>
+</html>
